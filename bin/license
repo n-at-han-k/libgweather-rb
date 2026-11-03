@@ -15,7 +15,7 @@
 #
 #      .licenserc.yaml is what it reads: the notice itself, the pattern which decides what
 #      counts as having one already, and which files are expected to carry it.  Ruby carries
-#      it; the shell scripts here and the Rust sources under ext/ do not.
+#      it; the shell scripts here do not.
 #
 #      Prefer check.  fix inserts the notice above `# frozen_string_literal: true` rather
 #      than below it, which is not where the other files carry it, so a new file is better
@@ -48,7 +48,7 @@
 # SEE ALSO
 #      bin/rubocop(1), license-eye(1)
 #
-# libgweather                          October 12, 2026                              LICENSE(1)
+# libgweather                         November 3, 2026                             LICENSE(1)
 
 set -o errexit
 set -o nounset

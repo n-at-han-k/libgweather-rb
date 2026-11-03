@@ -4,64 +4,49 @@ Copyright 2026 General Intelligence Systems
 This product includes software developed by the GNOME Project.
 
 --------------------------------------------------------------------------------
-libgweather (the Rust crate)
---------------------------------------------------------------------------------
-
-The native extension under ext/libgweather binds the libgweather crate, the
-gtk-rs binding over GNOME's GWeather. This gem is bindings for it and nothing
-else: every class it defines wraps a type of that crate.
-
-  https://gitlab.gnome.org/World/Rust/libgweather-rs
-  Copyright 2022-2026 Jamie Murphy and the libgweather-rs contributors
-  Licensed under the MIT License
-
-The MIT License is permissive and compatible with the Apache License, Version
-2.0, under which this work is distributed. The crate carries no NOTICE file of
-its own, so there is nothing further to propagate under section 4(d) of the
-Apache License; the MIT permission notice is reproduced below, which is what the
-MIT License itself asks for.
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE.
-
---------------------------------------------------------------------------------
 libgweather (the C library)
 --------------------------------------------------------------------------------
 
-The crate above is a thin wrapper. The code that parses Locations.xml, computes
-great-circle distances and renders condition strings is GNOME's C library, which
-gweather-sys locates with pkg-config and which the built extension links.
+This gem contains no code from libgweather and links nothing. It reads a
+description of the library at runtime: libgweather ships a GObject
+Introspection typelib, GWeather-4.0.typelib, and ruby-gnome's
+GObjectIntrospection::Loader defines the GWeather namespace from it when the gem
+is required. The library it describes belongs to the user's system and is not
+redistributed here.
 
   https://gitlab.gnome.org/GNOME/libgweather
   Copyright 1999-2026 the GWeather authors
   Licensed under the GNU Lesser General Public License, version 2.1 or later
 
-This is recorded here rather than left to be discovered. The LGPL is copyleft;
-the Apache License this gem is distributed under is not. The two coexist because
-the extension links libgweather-4 dynamically, which is the arrangement LGPL
-section 6 exists to permit: the library stays separately replaceable, this gem
-stays Apache-2.0, and a user may swap their system libgweather for another build
-of it.
+This is recorded rather than left to be discovered, because the licences differ:
+libgweather is LGPL copyleft and this gem is Apache-2.0. The two coexist because
+nothing is combined. There is no extension here, no static link and no vendored
+source — at build time this gem does not know libgweather exists, and at runtime
+it loads whichever copy the system provides, which is the separate
+replaceability LGPL section 6 is about.
 
-Static linking would not be that arrangement, and nothing here should be changed
-to do it before the licence question is answered. The Locations.xml database is
-distributed with that C library under its terms, and is not redistributed by this
-gem.
+That remains true only while the arrangement does. Vendoring the library,
+copying its headers, or adding an extension that links it are all different
+licence questions, and none of them should be answered by doing it first.
+
+The Locations.xml database — the world location tree that GWeather::Location
+walks — is distributed with that C library under its terms, and is likewise not
+redistributed by this gem.
+
+--------------------------------------------------------------------------------
+libgweather-rs
+--------------------------------------------------------------------------------
+
+An earlier attempt at this gem was a hand-written Rust extension over
+libgweather-rs, the gtk-rs binding. It was abandoned and removed: the typelib
+describes the whole library for about twenty lines of loader, and the
+cross-compile matrix could not build glib-sys anyway. No part of that work
+survives in this product, and no code from libgweather-rs appears in it. The
+reference is kept here so that the history is legible.
+
+  https://gitlab.gnome.org/World/Rust/libgweather-rs
+  Copyright 2022-2026 Jamie Murphy and the libgweather-rs contributors
+  Licensed under the MIT License
 
 --------------------------------------------------------------------------------
 On GNOME Weather

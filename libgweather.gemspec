@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["documentation_uri"] = "https://n-at-han-k.github.io/libgweather-rb/"
 
-  # The library, and the native extension's sources.
+  # The library. There are no extension sources: this gem is pure Ruby.
   #
   spec.files = Dir.glob(
     ["{lib}/**/*", "LICENSE", "NOTICE", "README.md", "CHANGELOG.md"],

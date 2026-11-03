@@ -28,6 +28,12 @@ require_relative "libgweather/loader"
 # One trap, paid for already: the typelib must come from the same glib build as
 # the `gobject-introspection` gem. Mix two and GIO is registered twice in one
 # process, which fails as `cannot register existing type 'GTlsCertificate'`.
+#
+# A second one, specific to this library: libgweather reads its own GSettings
+# schema, org.gnome.GWeather4, when a {GWeather::Info} is constructed. If the
+# schema is not installed, GSettings calls `g_error` and the process dies --
+# there is no exception to rescue. A distribution package installs it; under nix
+# it needs `GSETTINGS_SCHEMA_DIR`, which the dev shell sets.
 module GWeather
   LOG_DOMAIN = "GWeather"
   GLib::Log.set_log_domain(LOG_DOMAIN)

@@ -18,13 +18,12 @@ header:
       Released under the Apache License, Version 2\.0\.
       Copyright, \d{4}(?:[-,] ?\d{4})*, by .+\.
 
-  # Ruby carries the notice; the shell scripts under bin/ and the Rust sources under ext/ do not. The crate carries its attribution as rustdoc and in NOTICE instead.
+  # Ruby carries the notice; the shell scripts under bin/ do not. There is no ext/ here: this gem is pure Ruby, so every file which needs the notice is Ruby.
   paths:
     - "*.gemspec"
     - "Gemfile"
     - "Rakefile"
     - "bin/release-gem"
-    - "ext/**/*.rb"
     - "lib/**/*.rb"
     - "test/**/*.rb"
 
